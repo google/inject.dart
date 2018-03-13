@@ -14,11 +14,11 @@ TBD.
 
 ## FAQ
 
-* [Why is the issue tracker disabled?](#why-is-the-issue-tracker-disabled?)
-* [What do you mean by compile-time?](#what-do-you-mean-by-compile-time?)
-* [Can I use this with Flutter](#can-i-use-this-with-flutter?)
-* [Can I use this with AngularDart?](#can-i-use-this-with-angulardart?)
-* [Can I use this with server-side Dart?](#can-i-use-this-with-server-side-dart?)
+* [Why is the issue tracker disabled?](#why-is-the-issue-tracker-disabled)
+* [What do you mean by compile-time?](#what-do-you-mean-by-compile-time)
+* [Can I use this with Flutter](#can-i-use-this-with-flutter)
+* [Can I use this with AngularDart?](#can-i-use-this-with-angulardart)
+* [Can I use this with server-side Dart?](#can-i-use-this-with-server-side-dart)
 
 ### Why is the issue tracker disabled?
 
