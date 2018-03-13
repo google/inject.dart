@@ -1,9 +1,10 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/visitor.dart';
-import 'package:inject/src/analyzer/utils.dart';
-import 'package:inject/src/context.dart';
-import 'package:inject/src/source/symbol_path.dart';
+
+import '../context.dart';
+import '../source/symbol_path.dart';
+import 'utils.dart';
 
 /// Scans a resolved [LibraryElement] looking for metadata-annotated members.
 ///

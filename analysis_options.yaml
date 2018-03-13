@@ -1,5 +1,8 @@
 analyzer:
   strong-mode: true
+  exclude:
+    - "**/*.dart_tool/*"
+    - "**/build/*"
 linter:
   rules:
     # Errors

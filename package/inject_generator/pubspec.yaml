@@ -1,4 +1,4 @@
-name: inject
+name: inject_generator
 version: 1.0.0-alpha
 description: Dev-time dependency for package:inject.
 authors:

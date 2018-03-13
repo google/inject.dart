@@ -44,7 +44,7 @@ class InjectSummaryBuilder extends AbstractInjectBuilder {
         // injection.
         //
         // TODO: Make this an error case (fail).
-        builderContext.log.warning(
+        builderContext.log.info(
             lib,
             'no @module, @injector or @provide annotated classes '
             'found in library');

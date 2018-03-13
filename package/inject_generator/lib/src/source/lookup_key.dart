@@ -1,5 +1,6 @@
-import 'package:inject/src/source/symbol_path.dart';
 import 'package:quiver/core.dart';
+
+import 'symbol_path.dart';
 
 /// A representation of a key in the dependency injection graph.
 ///

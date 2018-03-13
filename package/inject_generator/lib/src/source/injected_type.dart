@@ -1,5 +1,6 @@
-import 'package:inject/src/source/lookup_key.dart';
 import 'package:quiver/core.dart';
+
+import 'lookup_key.dart';
 
 /// A type that the user is trying to inject with associated metadata about how
 /// the user is trying to inject it.

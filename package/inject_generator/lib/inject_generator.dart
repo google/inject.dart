@@ -4,7 +4,7 @@ import 'src/builder/codegen_builder.dart';
 import 'src/builder/summary_builder.dart';
 
 /// Create a [Builder] which produces `*.inject.dart` files from `*.dart` files.
-Builder generate([_]) => const InjectCodegenBuilder();
+Builder generateBuilder([_]) => const InjectCodegenBuilder();
 
-/// Create a [Builder] which produces intermediate files used by [generate].
-Builder summarize([_]) => const InjectSummaryBuilder();
+/// Create a [Builder] which produces summary files used by [generateBuilder].
+Builder summarizeBuilder([_]) => const InjectSummaryBuilder();

@@ -1,9 +1,10 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:inject/src/context.dart';
-import 'package:inject/src/source/injected_type.dart';
-import 'package:inject/src/source/lookup_key.dart';
-import 'package:inject/src/source/symbol_path.dart';
+
+import '../context.dart';
+import '../source/injected_type.dart';
+import '../source/lookup_key.dart';
+import '../source/symbol_path.dart';
 
 /// Constructs a serializable path to [element].
 SymbolPath getSymbolPath(Element element) {
