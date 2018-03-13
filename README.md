@@ -14,9 +14,19 @@ TBD.
 
 ## FAQ
 
+* [What do you mean by compile-time?](#what-do-you-mean-by-compile-time?)
 * [Can I use this with Flutter](#can-i-use-this-with-flutter?)
 * [Can I use this with AngularDart?](#can-i-use-this-with-angulardart?)
 * [Can I use this with server-side Dart?](#can-i-use-this-with-server-side-dart?)
+
+### What do you mean by compile-time?
+
+All dependency injection is analyzed, configured, and generated at compile-time
+as part of a build process, and does not rely on any runtime setup or
+configuration (such as reflection with `dart:mirrors`). This provides the best
+experience in terms of code-size and performance (it's nearly identical to hand
+written code) and allows us to provide compile-time errors and warnings instead
+of relying on runtime.
 
 ### Can I use this with Flutter?
 
