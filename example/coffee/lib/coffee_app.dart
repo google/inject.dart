@@ -3,7 +3,6 @@ library inject.example.coffee;
 import 'package:inject/inject.dart';
 
 // This is a compile-time generated file and does not exist in source.
-// ignore: uri_does_not_exist
 import 'coffee_app.inject.dart' as generated;
 import 'src/drip_coffee_module.dart';
 import 'src/coffee_maker.dart';

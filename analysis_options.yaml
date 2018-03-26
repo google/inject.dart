@@ -3,6 +3,8 @@ analyzer:
   exclude:
     - "**/*.dart_tool/*"
     - "**/build/*"
+  errors:
+    uri_does_not_exist: ignore
 linter:
   rules:
     # Errors

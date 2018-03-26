@@ -20,7 +20,5 @@ $ dart bin/brew.dart
 > system and testing package/infrastructure. For now this is a _workaround_.
 
 ```bash
-$ pub run build_runner build -o build
-$ cd build
-$ dart test/coffee_app_test.dart
+$ pub run build_runner test
 ```

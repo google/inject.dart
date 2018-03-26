@@ -1,5 +1,5 @@
-name: inject.example.coffee
-description: A simple example of using package:inject
+name: inject.example.train
+description: A more complex example of using package:inject
 
 dependencies:
   inject:
