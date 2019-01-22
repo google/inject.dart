@@ -1,7 +1,7 @@
 import 'package:build/build.dart';
 
-import 'src/builder/codegen_builder.dart';
-import 'src/builder/summary_builder.dart';
+import 'src/build/codegen_builder.dart';
+import 'src/build/summary_builder.dart';
 
 /// Create a [Builder] which produces `*.inject.dart` files from `*.dart` files.
 Builder generateBuilder([_]) => const InjectCodegenBuilder();

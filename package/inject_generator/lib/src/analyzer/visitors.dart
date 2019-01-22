@@ -1,10 +1,13 @@
+// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/visitor.dart';
-
+import 'utils.dart';
 import '../context.dart';
 import '../source/symbol_path.dart';
-import 'utils.dart';
 
 /// Scans a resolved [LibraryElement] looking for metadata-annotated members.
 ///
@@ -74,7 +77,7 @@ class _LibraryVisitor extends RecursiveElementVisitor<Null> {
         isInjector ? 'injector' : null,
       ].where((t) => t != null);
 
-      builderContext.log.warning(
+      builderContext.log.severe(
         element,
         'A class may be an injectable, a module or an injector, '
             'but not more than one of these types. However class '
@@ -91,7 +94,7 @@ class _LibraryVisitor extends RecursiveElementVisitor<Null> {
       bool asynchronous = hasAsynchronousAnnotation(element) ||
           element.constructors.any(hasAsynchronousAnnotation);
       if (asynchronous) {
-        builderContext.log.warning(
+        builderContext.log.severe(
           element,
           'Classes and constructors cannot be annotated with @Asynchronous().',
         );
@@ -197,7 +200,7 @@ class _AnnotatedClassVisitor extends GeneralizingElementVisitor<Null> {
       bool singleton = hasSingletonAnnotation(field);
       bool asynchronous = hasAsynchronousAnnotation(field);
       if (asynchronous) {
-        builderContext.log.warning(
+        builderContext.log.severe(
           field,
           'Getters cannot be annotated with @Asynchronous().',
         );

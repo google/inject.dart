@@ -1,3 +1,7 @@
+// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 import 'package:path/path.dart' as pkg_path;
 import 'package:quiver/core.dart';
 
@@ -142,7 +146,7 @@ class SymbolPath implements Comparable<SymbolPath> {
 
   /// For standard annotations defined by `package:inject`.
   const SymbolPath._standard(String symbol)
-      : this._('inject', 'lib/inject.dart', symbol);
+      : this._('inject', 'lib/src/api/annotations.dart', symbol);
 
   const SymbolPath._(this.package, this.path, this.symbol);
 

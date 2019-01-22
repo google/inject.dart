@@ -1,4 +1,7 @@
-part of '../graph.dart';
+// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+part of inject.src.graph;
 
 /// Assists code generation by doing compile-time analysis of an `@Injector`.
 ///
@@ -32,18 +35,34 @@ class InjectorGraphResolver {
     var filePath = path.withoutExtension(p.path) + _librarySummaryExtension;
     try {
       return _summaryCache[p] = await _reader.read(package, filePath);
-    } on FileSystemException catch (_) {
+    } on AssetNotFoundException {
+      logUnresolvedDependency(
+          injectorSummary: _injectorSummary,
+          dependency: p,
+          requestedBy: requestedBy);
+    } on PackageNotFoundException {
+      logUnresolvedDependency(
+          injectorSummary: _injectorSummary,
+          dependency: p,
+          requestedBy: requestedBy);
+    } on InvalidInputException {
+      logUnresolvedDependency(
+          injectorSummary: _injectorSummary,
+          dependency: p,
+          requestedBy: requestedBy);
+    } on FileSystemException {
+      logUnresolvedDependency(
+          injectorSummary: _injectorSummary,
+          dependency: p,
+          requestedBy: requestedBy);
+    } catch (error, stackTrace) {
       builderContext.rawLogger.severe(
-          '''Unable to locate metadata about ${p.symbol} defined in ${p.toAbsoluteUri().removeFragment()}.
-
-This dependency is requested by ${requestedBy.symbol} defined in ${requestedBy.toAbsoluteUri().removeFragment()}.
-
-A common reason for this error is the Dart file where this symbol is defined is
-not listed in the "generate_for" attribute of the "dart_library" build target.
-''');
-      // Default to blank summary.
-      return new LibrarySummary(p.toAbsoluteUri());
+          'Unrecognized error trying to find a dependency. '
+          'Please file a bug with package:inject.',
+          error,
+          stackTrace);
     }
+    return new LibrarySummary(p.toAbsoluteUri());
   }
 
   /// Return a resolved graph that can be used to generate a `$Injector` class.
@@ -59,7 +78,7 @@ not listed in the "generate_for" attribute of the "dart_library" build target.
         // We're lenient to programming errors. It is possible that an injector
         // refers to a module for which we failed to produce a summary. So we
         // emit a warning but keep on trucking.
-        builderContext.rawLogger.warning(
+        builderContext.rawLogger.severe(
             'Failed to locate summary for module ${module.toAbsoluteUri()} ',
             'specified in injector ${_injectorSummary.clazz.symbol}.');
         return null;
@@ -158,7 +177,7 @@ not listed in the "generate_for" attribute of the "dart_library" build target.
     return new InjectorGraph._(
       new List<SymbolPath>.unmodifiable(allModules.map((m) => m.clazz)),
       new List<InjectorProvider>.unmodifiable(injectorProviders),
-      new Map<SymbolPath, ResolvedDependency>.unmodifiable(mergedDependencies),
+      new Map<LookupKey, ResolvedDependency>.unmodifiable(mergedDependencies),
     );
   }
 
@@ -290,4 +309,34 @@ class Cycle {
     }
     return false;
   }
+}
+
+/// Logs an error message for a dependency that can not be resolved.
+///
+/// Since the DI graph can not be created with an unfulfilled dependency, this
+/// logs a severe error.
+void logUnresolvedDependency(
+    {@required InjectorSummary injectorSummary,
+    @required SymbolPath dependency,
+    @required SymbolPath requestedBy}) {
+  final injectorClassName = injectorSummary.clazz.symbol;
+  final dependencyClassName = dependency.symbol;
+  final requestedByClassName = requestedBy.symbol;
+  builderContext.rawLogger.severe(
+      '''Could not find a way to provide "$dependencyClassName" for injector "$injectorClassName" which is injected in "$requestedByClassName".
+
+To fix this, check that at least one of the following is true:
+
+- Ensure that $dependencyClassName's class declaration or constructor is annotated with @provide.
+
+- Ensure $injectorClassName contains a module that provides $dependencyClassName.
+
+These classes were found at the following paths:
+
+- Injector ($injectorClassName): ${injectorSummary.clazz.toAbsoluteUri().removeFragment()}.
+
+- Injected class ($dependencyClassName): ${dependency.toAbsoluteUri().removeFragment()}.
+
+- Injected in class ($requestedByClassName): ${requestedBy.toAbsoluteUri().removeFragment()}.
+''');
 }

@@ -1,4 +1,8 @@
-part of '../summary.dart';
+// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+part of inject.src.summary;
 
 /// JSON-serializable subset of code analysis information about a Dart library
 /// containing dependency injection constructs.
@@ -80,24 +84,25 @@ class LibrarySummary {
 
 InjectorSummary _injectorFromJson(Uri assetUri, Map<String, dynamic> json) {
   String name = json['name'] as String;
-  List<SymbolPath> modules = (json['modules'] as List<String>)
+  List<SymbolPath> modules = json['modules']
+      .cast<String>()
       .map(Uri.parse)
-      .map((e) => new SymbolPath.fromAbsoluteUri(e))
+      .map<SymbolPath>((e) => new SymbolPath.fromAbsoluteUri(e))
       .toList();
-  List<ProviderSummary> providers =
-      (json['providers'] as List<Map<String, dynamic>>)
-          .map(_providerFromJson)
-          .toList();
+  List<ProviderSummary> providers = json['providers']
+      .cast<Map<String, dynamic>>()
+      .map<ProviderSummary>(_providerFromJson)
+      .toList();
   var clazz = new SymbolPath.fromAbsoluteUri(assetUri, name);
   return new InjectorSummary(clazz, modules, providers);
 }
 
 ModuleSummary _moduleFromJson(Uri assetUri, Map<String, dynamic> json) {
   String name = json['name'] as String;
-  List<ProviderSummary> providers =
-      (json['providers'] as List<Map<String, dynamic>>)
-          .map(_providerFromJson)
-          .toList();
+  List<ProviderSummary> providers = json['providers']
+      .cast<Map<String, dynamic>>()
+      .map<ProviderSummary>(_providerFromJson)
+      .toList();
   var clazz = new SymbolPath.fromAbsoluteUri(assetUri, name);
   return new ModuleSummary(clazz, providers);
 }
@@ -108,8 +113,9 @@ ProviderSummary _providerFromJson(Map<String, dynamic> json) {
   var singleton = json['singleton'] as bool;
   var asynchronous = json['asynchronous'] as bool;
   var kind = json['kind'] as String;
-  final dependencies = (json['dependencies'] as List<Map<String, dynamic>>)
-      .map((dependency) => new InjectedType.fromJson(dependency))
+  final dependencies = json['dependencies']
+      .cast<Map<String, dynamic>>()
+      .map<InjectedType>((dependency) => new InjectedType.fromJson(dependency))
       .toList();
   return new ProviderSummary(
     injectedType,
@@ -126,6 +132,6 @@ InjectableSummary _injectableFromJson(Uri assetUri, Map<String, dynamic> json) {
   var type = new SymbolPath.fromAbsoluteUri(assetUri, name);
   return new InjectableSummary(
     type,
-    _providerFromJson(json['constructor'] as Map<String, dynamic>),
+    _providerFromJson(json['constructor'].cast<String, dynamic>()),
   );
 }

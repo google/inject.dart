@@ -1,4 +1,7 @@
-part of '../graph.dart';
+// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+part of inject.src.graph;
 
 /// A provider defined on an `@Injector` class.
 class InjectorProvider {
@@ -72,18 +75,6 @@ class DependencyProvidedByInjectable extends ResolvedDependency {
         );
 }
 
-/// A dependency that failed to resolve to a provider.
-class UnprovidedDependency extends ResolvedDependency {
-  /// Constructor.
-  UnprovidedDependency(SymbolPath key)
-      : super(
-          new LookupKey(key),
-          false,
-          false,
-          const [],
-        );
-}
-
 /// All of the data that is needed to generate an `@Injector` class.
 class InjectorGraph {
   /// Modules used by the injector.
@@ -93,7 +84,7 @@ class InjectorGraph {
   final List<InjectorProvider> providers;
 
   /// Dependencies resolved to concrete providers mapped from key.
-  final Map<SymbolPath, ResolvedDependency> mergedDependencies;
+  final Map<LookupKey, ResolvedDependency> mergedDependencies;
 
   InjectorGraph._(this.includeModules, this.providers, this.mergedDependencies);
 }

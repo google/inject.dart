@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:build/build.dart';
 import 'package:build_test/build_test.dart';
-import 'package:inject_generator/src/builder/summary_builder.dart';
+import 'package:inject_generator/src/build/summary_builder.dart';
 import 'package:inject_generator/src/summary.dart';
 import 'package:logging/logging.dart';
 import 'package:matcher/matcher.dart';
@@ -137,11 +137,11 @@ class TestingAssetWriter extends InMemoryAssetWriter {
 
   @override
   Future writeAsString(AssetId id, String contents,
-      {Encoding encoding: UTF8}) async {
+      {Encoding encoding: utf8}) async {
     super.writeAsString(id, contents, encoding: encoding);
     if (id.path.endsWith('.inject.summary')) {
       summaries[id.toString()] =
-          LibrarySummary.parseJson(JSON.decode(contents));
+          LibrarySummary.parseJson(json.decode(contents));
     }
     if (id.path.endsWith('.inject.dart')) {
       genfiles[id.toString()] = contents;

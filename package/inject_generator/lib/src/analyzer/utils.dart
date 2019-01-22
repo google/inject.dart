@@ -1,3 +1,7 @@
+// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 
@@ -61,7 +65,7 @@ ElementAnnotation _getAnnotation(Element element, SymbolPath annotationSymbol,
 
     if (valueElement == null) {
       String pathToAnnotation = annotationSymbol.toHumanReadableString();
-      builderContext.log.warning(
+      builderContext.log.severe(
         annotation.element ?? element,
         'While looking for annotation ${pathToAnnotation} on "${element}", '
             'failed to resolve annotation value. A common cause of this error is '
@@ -101,7 +105,7 @@ bool isSingletonClass(ClassElement clazz) {
     if (hasProvideAnnotation(clazz)) {
       isSingleton = true;
     } else {
-      builderContext.log.warning(
+      builderContext.log.severe(
           clazz,
           'A class cannot be annotated with `@singleton` '
           'without also being annotated `@provide`. '
@@ -114,7 +118,7 @@ bool isSingletonClass(ClassElement clazz) {
       if (hasProvideAnnotation(constructor)) {
         isSingleton = true;
       } else {
-        builderContext.log.warning(
+        builderContext.log.severe(
             constructor,
             'A constructor cannot be annotated with `@Singleton()` '
             'without also being annotated `@Provide()`. '

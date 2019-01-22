@@ -1,4 +1,17 @@
+// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+// TODO(yjbanov): clean up transitional analyzer API when final API is
+//                available. Transitional API is marked with <TRANSITIONAL_API>.
+//                See also: http://cl/219513934
+
 import 'dart:async';
+import 'package:analyzer/dart/analysis/results.dart';
+
+// <TRANSITIONAL_API>
+import 'package:analyzer/src/dart/analysis/results.dart';
+// </TRANSITIONAL_API>
 
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
@@ -87,19 +100,27 @@ class BuilderLogger {
   }
 
   String _constructMessage(Element element, String message) {
-    var ast =
-        element.kind != ElementKind.DYNAMIC ? element.computeNode() : null;
+    // <TRANSITIONAL_API>
+    ElementDeclarationResult elementDeclaration;
+    if (element.kind != ElementKind.DYNAMIC) {
+      var parsedLibrary = ParsedLibraryResultImpl.tmp(element.library);
+      if (parsedLibrary.state == ResultState.VALID) {
+        elementDeclaration = parsedLibrary.getElementDeclaration(element);
+      }
+    }
+    // </TRANSITIONAL_API>
     String sourceLocation;
     String source;
 
-    if (ast == null || element.source == null) {
+    if (elementDeclaration?.node == null || element.source == null) {
       sourceLocation = 'at unknown source location:';
       source = '.';
     } else {
-      var location =
-          element.context.getLineInfo(element.source).getLocation(ast.offset);
-      sourceLocation = 'at ${location}:';
-      source = ':\n\n${ast.toSource()}';
+      var offset = elementDeclaration.node.offset;
+      var location = elementDeclaration.parsedUnit.lineInfo.getLocation(offset);
+      var code = elementDeclaration.node.toSource();
+      sourceLocation = 'at $location:';
+      source = ':\n\n$code';
     }
 
     return '${_inputId} ${sourceLocation} ${message}${source}';

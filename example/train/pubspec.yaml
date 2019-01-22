@@ -6,9 +6,9 @@ dependencies:
     path: ../../package/inject
 
 dev_dependencies:
-  build_runner: ^0.8.0
+  build_runner: ^1.0.0
   build_test: ^0.10.1+1
-  build_web_compilers: ^0.3.4+2
+  build_web_compilers: ^1.0.0
   inject_generator:
     path: ../../package/inject_generator
-  test: ^0.12.32+1
+  test: ^1.0.0
