@@ -1,7 +1,8 @@
 **/.dart_tool/
 **/.packages
 **/.pub/
-**/build/
+*/build/
+*/*/build/
 **/pubspec.lock
 
 package/inject/android/
