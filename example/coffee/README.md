@@ -5,5 +5,5 @@ Some features are missing or incomplete.
 
 To run the example:
 ```bash
-$ blaze run third_party/dart/inject/example/coffee:brew
+$ pub run build_runner test
 ```
