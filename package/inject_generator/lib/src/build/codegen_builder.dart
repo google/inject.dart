@@ -8,15 +8,14 @@ import 'dart:convert';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
+import 'package:inject/src/build/abstract_builder.dart';
+import 'package:inject/src/context.dart';
+import 'package:inject/src/graph.dart';
+import 'package:inject/src/source/injected_type.dart';
+import 'package:inject/src/source/lookup_key.dart';
+import 'package:inject/src/source/symbol_path.dart';
+import 'package:inject/src/summary.dart';
 import 'package:meta/meta.dart' hide literal;
-
-import 'abstract_builder.dart';
-import '../context.dart';
-import '../graph.dart';
-import '../source/injected_type.dart';
-import '../source/lookup_key.dart';
-import '../source/symbol_path.dart';
-import '../summary.dart';
 
 /// Generates code for a dependency injection-aware library.
 class InjectCodegenBuilder extends AbstractInjectBuilder {

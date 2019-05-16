@@ -8,13 +8,12 @@ import 'dart:convert';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
-
-import 'abstract_builder.dart';
-import '../analyzer/utils.dart';
-import '../analyzer/visitors.dart';
-import '../context.dart';
-import '../source/symbol_path.dart';
-import '../summary.dart';
+import 'package:inject/src/analyzer/utils.dart';
+import 'package:inject/src/analyzer/visitors.dart';
+import 'package:inject/src/build/abstract_builder.dart';
+import 'package:inject/src/context.dart';
+import 'package:inject/src/source/symbol_path.dart';
+import 'package:inject/src/summary.dart';
 
 /// Extracts metadata about modules and injectors from Dart libraries.
 class InjectSummaryBuilder extends AbstractInjectBuilder {
@@ -247,6 +246,17 @@ class _ProviderSummaryVisitor extends InjectClassVisitor {
               return null;
             }
 
+            if (p.type.isDynamic) {
+              builderContext.log.severe(
+                  p.enclosingElement,
+                  'Parameter named `${p.name}` resolved to dynamic. This can '
+                  'happen when the return type is not specified, when it is '
+                  'specified as `dynamic`, or when the return type failed to '
+                  'resolve to a proper type due to a bad import or a typo. Do '
+                  'make sure that there are no analyzer warnings in your '
+                  'code.');
+              return null;
+            }
             return getInjectedType(p.type,
                 qualifier: hasQualifier(p) ? extractQualifier(p) : null);
           })

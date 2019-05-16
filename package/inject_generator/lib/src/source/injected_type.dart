@@ -2,9 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:inject_generator/src/source/lookup_key.dart';
 import 'package:quiver/core.dart';
-
-import 'lookup_key.dart';
 
 /// A type that the user is trying to inject with associated metadata about how
 /// the user is trying to inject it.

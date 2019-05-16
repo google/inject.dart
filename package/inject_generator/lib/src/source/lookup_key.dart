@@ -2,9 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:inject_generator/src/source/symbol_path.dart';
 import 'package:quiver/core.dart';
-
-import 'symbol_path.dart';
 
 /// A representation of a key in the dependency injection graph.
 ///

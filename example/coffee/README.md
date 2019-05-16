@@ -3,22 +3,7 @@ This is an adaptation of the "Coffee"
 
 Some features are missing or incomplete.
 
-## To run the example
-
-> **NOTE**: Our CLI story is a work-in-progress as work continues on the build
-> system and testing package/infrastructure. For now this is a _workaround_.
-
+To run the example:
 ```bash
-$ pub run build_runner build -o build
-$ cd build
-$ dart bin/brew.dart
-```
-
-## To run the tests
-
-> **NOTE**: Our test story is a work-in-progress as work continues on the build
-> system and testing package/infrastructure. For now this is a _workaround_.
-
-```bash
-$ pub run build_runner test
+$ blaze run third_party/dart/inject/example/coffee:brew
 ```

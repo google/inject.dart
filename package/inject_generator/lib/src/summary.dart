@@ -7,10 +7,9 @@
 /// Internal library, **do not export**.
 library inject.src.summary;
 
+import 'package:inject_generator/src/source/injected_type.dart';
+import 'package:inject_generator/src/source/symbol_path.dart';
 import 'package:quiver/collection.dart';
-
-import 'source/injected_type.dart';
-import 'source/symbol_path.dart';
 
 part 'summary/injectable_summary.dart';
 part 'summary/injector_summary.dart';

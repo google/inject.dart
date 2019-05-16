@@ -108,9 +108,9 @@ class SymbolPath implements Comparable<SymbolPath> {
     if (assetUri.scheme == 'global') {
       return new SymbolPath.global(symbolName);
     }
-    var paths = pkg_path.split(assetUri.path);
+    var paths = assetUri.path.split('/');
     var package = paths.first;
-    var path = pkg_path.joinAll(paths.skip(1));
+    var path = paths.skip(1).join('/');
     return new SymbolPath(package, path, symbolName);
   }
 
@@ -128,7 +128,7 @@ class SymbolPath implements Comparable<SymbolPath> {
       return libUri;
     }
 
-    var inSegments = pkg_path.split(libUri.path);
+    var inSegments = libUri.path.split('/');
     var outSegments = <String>[inSegments.first, 'lib']
       ..addAll(inSegments.skip(1));
 
@@ -206,20 +206,19 @@ class SymbolPath implements Comparable<SymbolPath> {
     if (relativeTo != null) {
       // Attempt to construct relative import.
       Uri normalizedBase = relativeTo.normalizePath();
-      List<String> baseSegments = pkg_path.split(normalizedBase.path)
-        ..removeLast();
-      List<String> targetSegments = pkg_path.split(toAbsoluteUri().path);
+      List<String> baseSegments = normalizedBase.path.split('/')..removeLast();
+      List<String> targetSegments = toAbsoluteUri().path.split('/');
       if (baseSegments.first == targetSegments.first &&
           baseSegments[1] == targetSegments[1]) {
         // Ok, we're in the same package and in the same top-level directory.
         String relativePath = pkg_path.relative(
             targetSegments.skip(2).join('/'),
             from: baseSegments.skip(2).join('/'));
-        return new Uri(path: relativePath);
+        return new Uri(path: pkg_path.split(relativePath).join('/'));
       }
     }
 
-    var pathSegments = pkg_path.split(path);
+    var pathSegments = path.split('/');
 
     if (pathSegments.first != 'lib') {
       throw new StateError(
@@ -227,7 +226,7 @@ class SymbolPath implements Comparable<SymbolPath> {
           'to a non-lib Dart file: ${toAbsoluteUri()}');
     }
 
-    var packagePath = pkg_path.joinAll(pathSegments.sublist(1));
+    var packagePath = pathSegments.sublist(1).join('/');
     return new Uri(
         scheme: isDartSdk ? _dartPackage : 'package',
         path: isDartSdk ? path : '$package/$packagePath');

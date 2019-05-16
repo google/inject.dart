@@ -34,20 +34,24 @@ class Qualifier {
 
 /// Annotates a class as a collection of providers for dependency injection.
 ///
-/// A class annotated with [module] is an abstract class that can be used to
-/// assemble an object graph. Modules may extend or mixin other modules, or
-/// rely on composition to fill in dependencies.
+/// A class annotated with [module] is a class that can be used to insert
+/// dependencies into the object graph. Modules may extend or mixin other
+/// modules, or rely on composition to fill in dependencies. Methods can have
+/// parameters that are in the object graph and will be invoked with the objects
+/// created from the [Injector] the module is installed on.
 ///
 /// An example:
+///
 ///     @module
-///     abstract class CarModule {
+///     class CarModule {
 ///       @provide
-///       Car provideCar();
+///       Car provideCar(Manufacturer manufacturer) =>
+///           Car(manufacturer: manufacturer, year: 2019);
 ///     }
 ///
-/// In this instance, a `CarModule` will know how to provide an instance of
-/// `Car`, given that all dependencies of `Car` are satisfied in the final
-/// object graph.
+/// In this instance, an injector that includes `CarModule` will know how to
+/// provide an instance of `Car`, given that all parameters of `provideCar` are
+/// satisfied in the final object graph.
 const module = const Module._();
 
 /// **INTERNAL ONLY**: Might be exposed if we add flags or other properties.

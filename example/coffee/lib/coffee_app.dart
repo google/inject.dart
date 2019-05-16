@@ -1,16 +1,14 @@
+// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 library inject.example.coffee;
 
 import 'package:inject/inject.dart';
 
-// This is a compile-time generated file and does not exist in source.
-import 'coffee_app.inject.dart' as generated;
+import 'coffee_app.inject.dart' as $G;
 import 'src/drip_coffee_module.dart';
 import 'src/coffee_maker.dart';
-
-export 'src/coffee_maker.dart';
-export 'src/drip_coffee_module.dart';
-export 'src/electric_heater.dart';
-export 'src/heater.dart';
 
 /// An example injector class.
 ///
@@ -19,7 +17,7 @@ export 'src/heater.dart';
 abstract class Coffee {
   /// A generated `async` static function, which takes a [DripCoffeeModule] and
   /// asynchronously returns an instance of [Coffee].
-  static final create = generated.Coffee$Injector.create;
+  static final create = $G.Coffee$Injector.create;
 
   /// An accessor to an object that an application may use.
   @provide

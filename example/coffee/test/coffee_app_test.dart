@@ -5,7 +5,6 @@ import 'package:test/test.dart';
 
 import 'package:inject.example.coffee/coffee_app.dart';
 
-// This is a compile-time generated file and does not exist in source.
 import 'coffee_app_test.inject.dart' as gen;
 
 List<String> _printLog = <String>[];
