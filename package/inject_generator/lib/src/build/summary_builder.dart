@@ -8,12 +8,12 @@ import 'dart:convert';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
-import 'package:inject/src/analyzer/utils.dart';
-import 'package:inject/src/analyzer/visitors.dart';
-import 'package:inject/src/build/abstract_builder.dart';
-import 'package:inject/src/context.dart';
-import 'package:inject/src/source/symbol_path.dart';
-import 'package:inject/src/summary.dart';
+import 'package:inject_generator/src/analyzer/utils.dart';
+import 'package:inject_generator/src/analyzer/visitors.dart';
+import 'package:inject_generator/src/build/abstract_builder.dart';
+import 'package:inject_generator/src/context.dart';
+import 'package:inject_generator/src/source/symbol_path.dart';
+import 'package:inject_generator/src/summary.dart';
 
 /// Extracts metadata about modules and injectors from Dart libraries.
 class InjectSummaryBuilder extends AbstractInjectBuilder {
